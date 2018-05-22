@@ -1,6 +1,6 @@
 import Data
 from flask import Flask
-app = Flask(__name__)
+application = Flask(__name__)
 import jinja2
 
 templateLoader = jinja2.FileSystemLoader(searchpath="./templates")
@@ -10,8 +10,12 @@ template = templateEnv.get_template(TEMPLATE_FILE)
 
 
 
-@app.route("/")
+@application.route("/")
 def hello():
 	episodes = Data.select_episodes()
 	return template.render(episodes = episodes)
+
+
+#if __name__ == "__main__":
+#	applicationlication.run(host='0.0.0.0')
 
