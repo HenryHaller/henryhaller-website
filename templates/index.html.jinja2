@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>  
+<head>
+  <title>Recent Updates</title>
+  <link href="./css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <h1>Great Updates!</h1>
+  <div id="container">
+{% for episode in episodes %}
+        <div>{{ episode[0] }}<a href="{{ episode[1] }}">{{ episode[2] }}</a></div>
+{% endfor %}
+</div>
+</body>
+</html>
+
