@@ -11,8 +11,8 @@ SQL_SELECT_EPISODE_RECORDS = '''SELECT shows.show_title, episodes.episode_url, e
 		 		FROM episodes
 				INNER JOIN shows
 				ON episodes.show_id = shows.id
-				LIMIT 25
-				ORDER BY episode_id DESC'''
+				ORDER BY episode_id DESC
+				LIMIT 25'''
 def select_episodes():
 	conn = None
 	rows = None
