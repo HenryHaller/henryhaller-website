@@ -27,5 +27,5 @@ def select_episodes():
 	finally:
 		if conn is not None:
 			conn.close()
-	return rows.reverse()
+	return rows
 
