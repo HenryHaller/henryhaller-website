@@ -10,7 +10,9 @@ DATABASE_URL = os.environ['DATABASE_URL']
 SQL_SELECT_EPISODE_RECORDS = '''SELECT shows.show_title, episodes.episode_url, episodes.episode_title
 		 		FROM episodes
 				INNER JOIN shows
-				ON episodes.show_id = shows.id LIMIT 25'''
+				ON episodes.show_id = shows.id
+				LIMIT 25
+				ORDER BY episode_id DESC'''
 def select_episodes():
 	conn = None
 	rows = None

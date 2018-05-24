@@ -14,7 +14,7 @@ template = templateEnv.get_template(TEMPLATE_FILE)
 def hello():
 	episodes = Data.select_episodes()
 	if episodes == None: return "Episodes = None!"
-	return template.render(episodes = episodes.reverse())
+	return template.render(episodes = episodes)
 
 @application.route('/static/<path:path>')
 def send_static(path):
