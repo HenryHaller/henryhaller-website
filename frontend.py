@@ -1,5 +1,5 @@
 import Data
-from flask import Flask
+from flask import Flask, send_from_directory
 application = Flask(__name__)
 import jinja2
 
@@ -14,6 +14,10 @@ template = templateEnv.get_template(TEMPLATE_FILE)
 def hello():
 	episodes = Data.select_episodes()
 	return template.render(episodes = episodes)
+
+@application.route('/static/<path:path>')
+def send_static(path):
+	return send_from_directory('js', path)
 
 
 #if __name__ == "__main__":
