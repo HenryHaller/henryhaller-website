@@ -1,8 +1,8 @@
+import os
 import traceback
 import psycopg2
 from configparser import ConfigParser
 from datetime import datetime
-
 
 def config(filename='database.ini', section='postgresql'):
     # create a parser
@@ -20,6 +20,7 @@ def config(filename='database.ini', section='postgresql'):
     return db
 
 
+DATABASE_URL = os.environ['DATABASE_URL']
 
 SQL_SELECT_EPISODE_RECORDS = '''SELECT shows.show_title, episodes.episode_url, episodes.episode_title
 		 		FROM episodes
@@ -30,7 +31,7 @@ def select_episodes():
 	rows = None
 	try:
 		params = config()
-		conn = psycopg2.connect(**params)
+		conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 		cur = conn.cursor()
 		cur.execute(SQL_SELECT_EPISODE_RECORDS)
 		rows = cur.fetchall()
