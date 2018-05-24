@@ -13,7 +13,7 @@ template = templateEnv.get_template(TEMPLATE_FILE)
 @application.route("/")
 def hello():
 	episodes = Data.select_episodes()
-	if episodes = None: return "Episodes = None!"
+	if episodes == None: return "Episodes = None!"
 	return template.render(episodes = episodes.reverse())
 
 @application.route('/static/<path:path>')
