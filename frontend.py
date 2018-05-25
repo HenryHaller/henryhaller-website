@@ -12,9 +12,21 @@ template = templateEnv.get_template(TEMPLATE_FILE)
 
 @application.route("/")
 def hello():
+#	shows = []
+#	links = []
+#	episodes = []
+#	i = 2
+#	for show, link, episode in Data.select_episodes():
+#		shows.append((show, i))
+#		links.append((link, i))
+#		episodes.append((episode, i))
+#		i = i + 1
 	episodes = Data.select_episodes()
 	if episodes == None: return "Episodes = None!"
 	return template.render(episodes = episodes)
+#	return template.render(shows = shows,
+#				links = links,
+#				episodes = episodes)
 
 @application.route('/static/<path:path>')
 def send_static(path):

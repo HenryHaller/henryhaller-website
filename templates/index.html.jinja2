@@ -6,12 +6,25 @@
   <link href="./static/css/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-  <h1>Great Updates!</h1>
   <div id="container">
+  <h1>Great Updates!</h1>
+  <table>
+  <thead>
+    <tr>
+      <th class="left_cell">Show</th>
+      <th>Episode</th>
+    </tr>
+  </thead>
+  <tbody>
 {% for episode in episodes %}
-        <div>{{ episode[0] }}<a href="{{ episode[1] }}">{{ episode[2] }}</a></div>
+    <tr>
+      <td class="left_cell"><strong>{{ episode[0] }}</strong></td>
+      <td><a href="{{ episode[1] }}">{{ episode[2] }}</td>
+    </tr>
 {% endfor %}
-</div>
+  </tbody>
+  </table>
+  </div>
 </body>
 </html>
 

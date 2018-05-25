@@ -2,12 +2,15 @@ body {
 font-family: 'IBM Plex Serif', serif;
 }
 
-h1 {
-text-align: center;
-}
-
 #container {
-text-align: center;
+margin: auto;
 }
 
+table, h1 {
+text-align: left;
+}
+
+td {
+border-bottom: solid black 3px;
+}
 
