@@ -83,7 +83,7 @@ def buildup():
 
 
 SQL_UPDATE_SHOW_TIMESTAMP = '''UPDATE shows SET ts=now();'''
-def update_timestamp():
+def update_timestamps():
 	conn = None
 	try:
 		conn = db.connect()
@@ -128,7 +128,7 @@ def insert_episode(url, title, id):
 		cur.close()
 	except (Exception, psycopg2.DatabaseError) as error:
 		print(error)
-		traceback.print_exc()
+		#traceback.print_exc()
 		# likely a duplicate?
 	finally:
 		if conn is not None:
