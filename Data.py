@@ -1,11 +1,8 @@
-import os
 import traceback
-import psycopg2
 from datetime import datetime
+import db
 
 
-
-DATABASE_URL = os.environ['DATABASE_URL']
 
 SQL_SELECT_EPISODE_RECORDS = '''SELECT shows.show_title, episodes.episode_url, episodes.episode_title
 		 		FROM episodes
@@ -17,7 +14,7 @@ def select_episodes():
 	conn = None
 	rows = None
 	try:
-		conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+		conn = db.connect()
 		cur = conn.cursor()
 		cur.execute(SQL_SELECT_EPISODE_RECORDS)
 		rows = cur.fetchall()
