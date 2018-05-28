@@ -1,1 +1,8 @@
 *.swp
+*.swp
+backend.log
+database.ini
+run.time
+sounds.rss
+urls.yaml
+
