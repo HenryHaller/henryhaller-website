@@ -71,7 +71,7 @@ def buildup():
 	try:
 		conn = db.connect()
 		cur = conn.cursor()
-		for key, value in urls.items():
+		for key, value in urls.get_urls().items():
 			cur.execute(SQL_CREATE_SHOW_RECORD, (key, value))
 		conn.commit()
 		cur.close()

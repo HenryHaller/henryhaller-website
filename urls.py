@@ -1,4 +1,6 @@
 import yaml
-f = open('urls.yaml', 'r')
-urls = yaml.load(f)
-f.close()
+def get_urls():
+	f = open('urls.yaml', 'r')
+	urls = yaml.load(f)
+	f.close()
+	return urls
