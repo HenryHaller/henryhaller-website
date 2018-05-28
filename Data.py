@@ -2,7 +2,7 @@ import traceback
 from datetime import datetime
 import time
 import db
-from urls import urls
+import urls
 import psycopg2
 from configparser import ConfigParser
 
