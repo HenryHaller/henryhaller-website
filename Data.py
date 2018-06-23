@@ -7,13 +7,22 @@ import psycopg2
 from configparser import ConfigParser
 
 
+"""
+teardown: drop show and episode tables
+init: rebuild basic database
+buildup: rebuild the show table from urls.yaml
 
-SQL_SELECT_EPISODE_RECORDS = '''SELECT shows.show_title, episodes.episode_url, episodes.episode_title
+"""
+
+
+
+SQL_SELECT_EPISODE_RECORDS = '''SELECT shows.show_title, episodes.episode_url, episodes.episode_title, insertion_date
 		 		FROM episodes
 				INNER JOIN shows
 				ON episodes.show_id = shows.id
 				ORDER BY episode_id DESC
 				LIMIT 25'''
+
 def select_episodes():
 	conn = None
 	rows = None
@@ -117,7 +126,7 @@ def shows():
 
 
 
-SQL_INSERT_EPISODE_RECORD = '''INSERT INTO episodes ( episode_url, episode_title, show_id) VALUES (%s, %s, %s ) '''
+SQL_INSERT_EPISODE_RECORD = '''INSERT INTO episodes ( episode_url, episode_title, show_id) VALUES (%s, %s, %s) '''
 def insert_episode(url, title, id):
 	conn = None
 	try:
