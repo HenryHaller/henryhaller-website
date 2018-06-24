@@ -13,7 +13,7 @@
     <tr>
       <th class="left_cell">Show</th>
       <th>Episode</th>
-      <th>Time Added</th>
+      <th>Age</th>
     </tr>
   </thead>
   <tbody>
@@ -21,12 +21,14 @@
     <tr>
       <td class="left_cell"><strong>{{ episode[0] }}</strong></td>
       <td><a href="{{ episode[1] }}">{{ episode[2] }}</td>
-      <td>{{ episode[3] }}</td>
+      <td class='timestamp'>{{ episode[3] }}</td>
     </tr>
 {% endfor %}
   </tbody>
   </table>
   </div>
 </body>
+<script type="text/javascript" src="./static/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="./static/js/EA.js"></script>
 </html>
 
