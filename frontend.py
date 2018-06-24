@@ -9,7 +9,6 @@ TEMPLATE_FILE = "index.html.jinja2"
 template = templateEnv.get_template(TEMPLATE_FILE)
 
 
-
 @application.route("/")
 def hello():
 #	shows = []

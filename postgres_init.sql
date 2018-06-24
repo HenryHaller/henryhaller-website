@@ -2,7 +2,7 @@ CREATE TABLE shows (
 	id SERIAL PRIMARY KEY,
 	show_title TEXT,
 	rss_url TEXT,
-	ts TIMESTAMPTZ DEFAULT Now()
+	ts TIMESTAMPTZ DEFAULT Now(),
 );
 
 CREATE TABLE episodes (

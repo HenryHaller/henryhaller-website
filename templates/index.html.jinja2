@@ -7,21 +7,21 @@
 </head>
 <body>
   <div id="container">
-  <h1>Great Updates!</h1>
+  <!-- <h1>Great Updates!</h1> -->
   <table>
   <thead>
     <tr>
       <th class="left_cell">Show</th>
       <th>Episode</th>
-      <th>Age</th>
+      <th class="right_cell">Age</th>
     </tr>
   </thead>
   <tbody>
 {% for episode in episodes %}
-    <tr>
-      <td class="show_title"><strong>{{ episode[0] }}</strong></td>
-      <td class="episode_title"><a download href="{{ episode[1] }}"><span class="episode">{{ episode[2] }}</span></a></td>
-      <td class='timestamp'>{{ episode[3] }}</td>
+    <tr style="background-color:#{{ episode.color }}">
+      <td class="show left_cell"><strong>{{ episode.show_title }}</strong></td>
+      <td class="episode"><a download href="{{ episode.url }}"><span class="episode">{{ episode.episode_title }}</span></a></td>
+      <td class='timestamp right_cell'>{{ episode.timestamp }}</td>
     </tr>
 {% endfor %}
   </tbody>

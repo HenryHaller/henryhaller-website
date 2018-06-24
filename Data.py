@@ -5,6 +5,7 @@ import db
 import urls
 import psycopg2
 from configparser import ConfigParser
+import schema
 
 
 """
@@ -26,6 +27,7 @@ SQL_SELECT_EPISODE_RECORDS = '''SELECT shows.show_title, episodes.episode_url, e
 def select_episodes():
 	conn = None
 	rows = None
+	episodes = []
 	try:
 		conn = db.connect()
 		cur = conn.cursor()
@@ -39,7 +41,9 @@ def select_episodes():
 	finally:
 		if conn is not None:
 			conn.close()
-	return rows
+	for row in rows:
+		episodes.append(schema.Episode(row))
+	return episodes
 
 
 init_file = "postgres_init.sql"
