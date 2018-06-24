@@ -20,7 +20,7 @@
 {% for episode in episodes %}
     <tr>
       <td class="show_title"><strong>{{ episode[0] }}</strong></td>
-      <td class="episode_title"><a download href="{{ episode[1] }}">{{ episode[2] }}</td>
+      <td class="episode_title"><a download href="{{ episode[1] }}"><span class="episode">{{ episode[2] }}</span></a></td>
       <td class='timestamp'>{{ episode[3] }}</td>
     </tr>
 {% endfor %}

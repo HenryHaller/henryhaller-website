@@ -6,11 +6,56 @@ font-family: 'IBM Plex Serif', serif;
 margin: auto;
 }
 
+td {
+/*position:absolute;*/
+width:25%;
+}
+
+td.episode_title {
+/*position:absolute;*/
+/*padding-right:6%;*/
+/*padding-left:6%;*/
+width:50%;
+}
+span.episode {
+font-size: 22px;
+}
+
+
 table, h1 {
-text-align: left;
+text-align: center;
+}
+
+table {
+position:absolute;
+#top:0;
+#bottom:0;
+#left:0;
+#right:0;
+width:100%;
 }
 
 td {
-border-bottom: solid black 3px;
+/*border-bottom: solid black 3px;*/
+}
+
+a {
+margin: auto;
+color: green;
+padding: 1em 1.5em;
+text-decoration: none;
+text-transform: uppercase;
+}
+
+
+a:active {
+/*  background-color: black;*/
+}
+
+a:hover {
+/*  background-color: #555;*/
+}
+a:visited {
+/*  background-color: #ccc;*/
 }
 
