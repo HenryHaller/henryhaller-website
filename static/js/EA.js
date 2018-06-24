@@ -15,6 +15,5 @@ for (index = 0; index < tds.length; index++) {
   let elapsed_text = Math.floor(minutes) +'  Minutes.'
   if (hours > 1.000)  { elapsed_text = Math.floor(hours) + " Hours, " + elapsed_text}
   if (days > 1.000)  { elapsed_text = Math.floor(days) + " Days " + elapsed_text}
-  console.log(days, hours, minutes);
   td.innerHTML = elapsed_text;
   }
