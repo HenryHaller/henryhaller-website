@@ -9,7 +9,7 @@ margin: auto;
 
 th {
 font-size:42px;
-border-bottom:solid green;
+border-bottom:inset red;
 color:#ECC6BD;
 padding-top:0.75%;
 padding-bottom:0.75%;
@@ -17,20 +17,27 @@ padding-bottom:0.75%;
 
 
 td {
+border:0;
+border-bottom:inset blue;
 }
 
 p {
 margin:0;
-padding:1% 0;
+padding:2% 0;
 border:0;
 }
 
-th.left_cell {
-border-right:solid red;
+.left {
+/*border-right:inset red;*/
 }
 
-th.right_cell {
-border-left: solid red;
+.middle {
+/*border-right:inset red;*/
+/*border-left: inset red;*/
+}
+
+.right {
+/*border-left: inset red;*/
 }
 
 
@@ -43,16 +50,19 @@ font-weight: bold;
 }
 
 td.show { 
-/*border: solid red;*/
+/*border: inset red;*/
 width:20%;
-border-right:solid red;
 font-size: 24px;
 font-weight: bold;
 }
 
 td.timestamptd {
 width:20%;
-border-left:solid red;
+font-size: 23px;
+font-weight: bold;
+}
+
+td.duration {
 font-size: 23px;
 font-weight: bold;
 }
@@ -63,6 +73,8 @@ text-align: center;
 }
 
 table {
+border-collapse:collapse;
+border:0;
 position:absolute;
 top:0;
 bottom:0;

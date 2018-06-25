@@ -17,7 +17,7 @@ buildup: rebuild the show table from urls.yaml
 
 
 
-SQL_SELECT_EPISODE_RECORDS = '''SELECT shows.show_title, episodes.episode_url, episodes.episode_title, insertion_date
+SQL_SELECT_EPISODE_RECORDS = '''SELECT shows.show_title, episodes.episode_url, episodes.episode_title, insertion_date, duration
 		 		FROM episodes
 				INNER JOIN shows
 				ON episodes.show_id = shows.id
@@ -130,13 +130,13 @@ def shows():
 
 
 
-SQL_INSERT_EPISODE_RECORD = '''INSERT INTO episodes ( show_id, episode_url, episode_title, insertion_date) VALUES (%s, %s, %s, %s) '''
-def insert_episode(id, url, title, timestamp):
+SQL_INSERT_EPISODE_RECORD = '''INSERT INTO episodes ( show_id, episode_url, episode_title, insertion_date, duration) VALUES (%s, %s, %s, %s, %s) '''
+def insert_episode(id, url, title, timestamp, duration):
 	conn = None
 	try:
 		conn = db.connect()
 		cur = conn.cursor()
-		cur.execute(SQL_INSERT_EPISODE_RECORD, (id, url, title, timestamp))
+		cur.execute(SQL_INSERT_EPISODE_RECORD, (id, url, title, timestamp, duration))
 		conn.commit()
 		cur.close()
 	except (Exception, psycopg2.DatabaseError) as error:

@@ -21,8 +21,12 @@ for title, url, dt, id in Data.shows():
 			item = items[i]
 			logging.info(item["title"])
 			published = item["published"]
+			try:
+				duration = item["itunes_duration"]
+			except:
+				duration = None
 			#print(item["title"], item['links'][1]['href'])
-			Data.insert_episode(id, item['links'][1]['href'], item["title"], published)
+			Data.insert_episode(id, item['links'][1]['href'], item["title"], published, duration)
 			i = i + 1
 	except:
 		print("caught error")
