@@ -19,7 +19,7 @@
   <tbody>
 {% for episode in episodes %}
     <tr style="background-color:#{{ episode.color }}">
-      <td class="show"><p><strong>{{ episode.show_title }}</strong></p></td>
+      <td class="show"><p>{{ episode.show_title }}</p></td>
       <td class="episode"><p><a download href="{{ episode.url }}">{{ episode.episode_title }}</a></p></td>
       <td class="timestamptd"><p><span class="timestamp">{{ episode.timestamp }}</span></p></td>
     </tr>
