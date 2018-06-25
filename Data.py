@@ -21,7 +21,7 @@ SQL_SELECT_EPISODE_RECORDS = '''SELECT shows.show_title, episodes.episode_url, e
 		 		FROM episodes
 				INNER JOIN shows
 				ON episodes.show_id = shows.id
-				ORDER BY episode_id DESC
+				ORDER BY insertion_date DESC
 				LIMIT 25'''
 
 def select_episodes():
@@ -130,13 +130,13 @@ def shows():
 
 
 
-SQL_INSERT_EPISODE_RECORD = '''INSERT INTO episodes ( episode_url, episode_title, show_id) VALUES (%s, %s, %s) '''
-def insert_episode(url, title, id):
+SQL_INSERT_EPISODE_RECORD = '''INSERT INTO episodes ( show_id, episode_url, episode_title, insertion_date) VALUES (%s, %s, %s, %s) '''
+def insert_episode(id, url, title, timestamp):
 	conn = None
 	try:
 		conn = db.connect()
 		cur = conn.cursor()
-		cur.execute(SQL_INSERT_EPISODE_RECORD, (url, title, id))
+		cur.execute(SQL_INSERT_EPISODE_RECORD, (id, url, title, timestamp))
 		conn.commit()
 		cur.close()
 	except (Exception, psycopg2.DatabaseError) as error:

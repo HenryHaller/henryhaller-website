@@ -20,11 +20,13 @@ for title, url, dt, id in Data.shows():
 		while time.mktime(items[i]['published_parsed']) > time.mktime(dt.timetuple()):
 			item = items[i]
 			logging.info(item["title"])
+			published = item["published"]
 			#print(item["title"], item['links'][1]['href'])
-			Data.insert_episode(item['links'][1]['href'], item["title"], id)
+			Data.insert_episode(id, item['links'][1]['href'], item["title"], published)
 			i = i + 1
 	except:
 		print("caught error")
+		print(url)
 		traceback.print_exc()
 		exit()
 
