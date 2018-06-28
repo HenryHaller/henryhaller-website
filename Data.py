@@ -17,7 +17,7 @@ buildup: rebuild the show table from urls.yaml
 
 
 
-SQL_SELECT_EPISODE_RECORDS = '''SELECT shows.show_title, episodes.episode_url, episodes.episode_title, insertion_date, duration
+SQL_SELECT_EPISODE_RECORDS = '''SELECT shows.title, episodes.episode_url, episodes.title, insertion_date, duration, shows.small_title
 		 		FROM episodes
 				INNER JOIN shows
 				ON episodes.show_id = shows.id
@@ -46,6 +46,34 @@ def select_episodes():
 	return episodes
 
 
+SQL_SELECT_PODVIEW_RECORDS = '''SELECT shows.title, episodes.episode_url, episodes.title, insertion_date, duration, shows.small_title
+		 		FROM episodes
+				INNER JOIN shows
+				ON episodes.show_id = shows.id
+				WHERE shows.small_title = %s
+				ORDER BY insertion_date DESC
+				LIMIT 25'''
+def select_podview_episodes(small_title):
+	conn = None
+	rows = None
+	episodes = []
+	try:
+		conn = db.connect()
+		cur = conn.cursor()
+		cur.execute(SQL_SELECT_PODVIEW_RECORDS, (small_title,))
+		rows = cur.fetchall()
+		cur.close()
+	except (Exception, psycopg2.DatabaseError) as error:
+		print(error)
+		traceback.print_exc()
+		# likely a duplicate?
+	finally:
+		if conn is not None:
+			conn.close()
+	for row in rows:
+		episodes.append(schema.Episode(row))
+	return episodes
+
 init_file = "postgres_init.sql"
 teardown_file = "postgres_teardown.sql"
 
@@ -60,6 +88,7 @@ def init():
 		conn.commit()
 	except (Exception, psycopg2.DatabaseError) as error:
 		print(error)
+		exit("Error in Init-ing the Database. Stopping.")
 	finally:
 		if conn is not None:
 			conn.close()
@@ -78,14 +107,13 @@ def teardown():
 			conn.close()
 
 
-SQL_CREATE_SHOW_RECORD = '''INSERT INTO shows(show_title, rss_url) VALUES(%s, %s)'''
-def buildup():
+SQL_CREATE_SHOW_RECORD = '''INSERT INTO shows(title, rss_url, small_title) VALUES(%s, %s, %s)'''
+def insert_show(show):
 	conn = None
 	try:
 		conn = db.connect()
 		cur = conn.cursor()
-		for key, value in urls.get_urls().items():
-			cur.execute(SQL_CREATE_SHOW_RECORD, (key, value))
+		cur.execute(SQL_CREATE_SHOW_RECORD, (show.title, show.url, show.small_title))
 		conn.commit()
 		cur.close()
 	except (Exception, psycopg2.DatabaseError) as error:
@@ -111,7 +139,7 @@ def update_timestamps():
 			conn.close()
 
 
-SQL_SELECT_SHOWS = '''SELECT show_title, rss_url, ts, id FROM shows'''
+SQL_SELECT_SHOWS = '''SELECT title, rss_url, ts, id FROM shows'''
 def shows():
 	conn = None
 	rows = None
@@ -130,7 +158,7 @@ def shows():
 
 
 
-SQL_INSERT_EPISODE_RECORD = '''INSERT INTO episodes ( show_id, episode_url, episode_title, insertion_date, duration) VALUES (%s, %s, %s, %s, %s) '''
+SQL_INSERT_EPISODE_RECORD = '''INSERT INTO episodes ( show_id, episode_url, title, insertion_date, duration) VALUES (%s, %s, %s, %s, %s) '''
 def insert_episode(id, url, title, timestamp, duration):
 	conn = None
 	try:

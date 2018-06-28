@@ -9,28 +9,24 @@ logging.basicConfig(filename='backend.log', level=logging.DEBUG)
 logging.info("Running on " + time.strftime("%c"))
 
 
-for title, url, dt, id in Data.shows():
+for show_title, url, dt, show_id in Data.shows():
 	try:
-		logging.info(title)
+		logging.info(show_title)
 		d = requests.get(url).text
 		items = feedparser.parse(d)["entries"]
 		logging.info("Entries parsed: " + str(len(items)))
 		if len(items) == 0: continue
-		i = 0
-		while time.mktime(items[i]['published_parsed']) > time.mktime(dt.timetuple()):
-			item = items[i]
-			logging.info(item["title"])
-			published = item["published"]
+		for i in items:
+			link = i['links'][1]['href']
+			title = i["title"]
+			published = i["published"]
 			try:
-				duration = item["itunes_duration"]
+				duration = i["itunes_duration"]
 			except:
 				duration = None
-			#print(item["title"], item['links'][1]['href'])
-			Data.insert_episode(id, item['links'][1]['href'], item["title"], published, duration)
-			i = i + 1
+			Data.insert_episode(show_id, link, title, published, duration)
 	except:
-		print("caught error")
-		print(url)
+		print("caught error on ", show_title, title)
 		traceback.print_exc()
 		exit()
 
