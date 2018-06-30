@@ -3,6 +3,7 @@
 <head>
   <title>Recent Updates</title>
   <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Serif" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
   <link href="./static/css/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -21,7 +22,7 @@
 {% for episode in episodes %}
     <tr style="background-color:#{{ episode.color }}">
       <td class="show left"><a href="./podview/{{ episode.small_show_title }}"><p>{{ episode.show_title }}</p></a></td>
-      <td class="episode middle"><p><a download href="{{ episode.url }}">{{ episode.episode_title }}</a></p></td>
+      <td class="episode middle"><p><a download href="{{ episode.url }}">"{{ episode.episode_title }}"</a></p></td>
       <td class="timestamptd middle"><p><span class="timestamp">{{ episode.timestamp }}</span></p></td>
       <td class="duration right"><p>{{ episode.duration }}</p></td>
     </tr>
