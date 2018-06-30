@@ -17,7 +17,7 @@ buildup: rebuild the show table from urls.yaml
 
 
 
-SQL_SELECT_EPISODE_RECORDS = '''SELECT shows.title, episodes.episode_url, episodes.title, insertion_date, duration, shows.small_title
+SQL_SELECT_EPISODE_RECORDS = '''SELECT shows.title, episodes.episode_url, episodes.title, insertion_date, duration, shows.small_title, shows.color
 		 		FROM episodes
 				INNER JOIN shows
 				ON episodes.show_id = shows.id
@@ -46,7 +46,7 @@ def select_episodes():
 	return episodes
 
 
-SQL_SELECT_PODVIEW_RECORDS = '''SELECT shows.title, episodes.episode_url, episodes.title, insertion_date, duration, shows.small_title
+SQL_SELECT_PODVIEW_RECORDS = '''SELECT shows.title, episodes.episode_url, episodes.title, insertion_date, duration, shows.small_title, shows.color
 		 		FROM episodes
 				INNER JOIN shows
 				ON episodes.show_id = shows.id
@@ -107,13 +107,13 @@ def teardown():
 			conn.close()
 
 
-SQL_CREATE_SHOW_RECORD = '''INSERT INTO shows(title, rss_url, small_title) VALUES(%s, %s, %s)'''
+SQL_CREATE_SHOW_RECORD = '''INSERT INTO shows(title, rss_url, small_title, color) VALUES(%s, %s, %s, %s)'''
 def insert_show(show):
 	conn = None
 	try:
 		conn = db.connect()
 		cur = conn.cursor()
-		cur.execute(SQL_CREATE_SHOW_RECORD, (show.title, show.url, show.small_title))
+		cur.execute(SQL_CREATE_SHOW_RECORD, (show.title, show.url, show.small_title, show.color))
 		conn.commit()
 		cur.close()
 	except (Exception, psycopg2.DatabaseError) as error:

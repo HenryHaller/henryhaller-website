@@ -3,7 +3,7 @@ CREATE TABLE shows (
 	title TEXT,
 	small_title TEXT,
 	rss_url TEXT,
-	color TEXT DEFAULT '#ffffff',
+	color TEXT DEFAULT NULL,
 	show_img TEXT DEFAULT NULL,
 	ts TIMESTAMPTZ DEFAULT Now()
 );
