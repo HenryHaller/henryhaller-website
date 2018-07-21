@@ -7,7 +7,7 @@ templateLoader = jinja2.FileSystemLoader(searchpath="./templates")
 templateEnv = jinja2.Environment(loader=templateLoader)
 
 
-@application.route("/")
+@application.route("/pods/")
 def hello():
 	TEMPLATE_FILE = "index.html.jinja2"
 	template = templateEnv.get_template(TEMPLATE_FILE)
@@ -16,7 +16,7 @@ def hello():
 	return template.render(episodes = episodes)
 
 
-@application.route('/podview/<string:small_show_title>')
+@application.route('/pods/podview/<string:small_show_title>')
 def podview(small_show_title):
 	TEMPLATE_FILE = "podview.html.jinja2"
 	template = templateEnv.get_template(TEMPLATE_FILE)
