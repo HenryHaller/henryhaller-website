@@ -6,10 +6,15 @@ import jinja2
 templateLoader = jinja2.FileSystemLoader(searchpath="./templates")
 templateEnv = jinja2.Environment(loader=templateLoader)
 
+@application.route("/")
+def introduce_henry():
+	TEMPLATE_FILE = "index.html.jinja2"
+	template = templateEnv.get_template(TEMPLATE_FILE)
+	return template.render()
 
 @application.route("/pods/")
 def hello():
-	TEMPLATE_FILE = "index.html.jinja2"
+	TEMPLATE_FILE = "pods_index.html.jinja2"
 	template = templateEnv.get_template(TEMPLATE_FILE)
 	episodes = Data.select_episodes()
 	if episodes == None: return "Episodes = None!"

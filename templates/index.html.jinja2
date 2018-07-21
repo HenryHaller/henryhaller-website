@@ -1,37 +1,30 @@
 <!DOCTYPE html>
-<html>  
+<html>
 <head>
-  <title>Recent Updates</title>
-  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Serif" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
-  <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
+  <title>Henry Haller</title>
 </head>
 <body>
-  <div id="container">
-  <!-- <h1>Great Updates!</h1> -->
-  <table>
-  <thead>
-    <tr>
-      <th>Source</th>
-      <th>Title</th>
-      <th>Age</th>
-      <th>Duration</th>
-    </tr>
-  </thead>
-  <tbody>
-{% for episode in episodes %}
-    <tr style="background-color:#{{ episode.color }}">
-      <td class="show left"><a href="./podview/{{ episode.small_show_title }}"><p>{{ episode.show_title }}</p></a></td>
-      <td class="episode middle"><p><a download href="{{ episode.url }}">"{{ episode.episode_title }}"</a></p></td>
-      <td class="timestamptd middle"><p><span class="timestamp">{{ episode.timestamp }}</span></p></td>
-      <td class="duration right"><p>{{ episode.duration }}</p></td>
-    </tr>
-{% endfor %}
-  </tbody>
-  </table>
-  </div>
+  <h1>Henry Haller</h1>
+  <p>
+    Hi, thank you for visiting my personal website. I made this website to demonstrate my ability in full stack development.
+  </p>
+  <p>
+    I've been interested in web development for a while and have self-taught myself quite a lot. Much of what makes the website you're looking at right
+    now was self-taught. I love how the internet can be a force for good by bringing cool people together
+    to do fun things and also make people's lives easier and more convenient. In order to bring my web development skills to the
+    highest level possible I am currently a student at Le Wagon Tokyo and becoming a master of Ruby on Rails.
+  </p>
+  <p>
+    Recently I made a project both for my own convenience and as an example of my skills. This project will track updates from any podcast rss feed you
+    want and make the links available for you in one convenient location. Please <a href="/pods/">check it out!</a> I use it daily. My inspiration for it
+    was getting fed up with tracking down my favorite podcasts from diverse sources on Patreon, Soundcloud and individual websites, now I have them all
+    conveniently available in the same location. I hope you find it convenient too.
+  </p>
+  <p>
+    Right now I am looking for job opportunities in Japan. I know my way around full stack development (SQL, HTML, CSS JavaScript, jQuery, ReactJS,
+    Ruby-on-Rails, Flask, Django) and can do a lot on the Unix command line as well. Having learned all those technologies has given me enough perspective
+    to know that what you know is important, but your ability to learn new things all the time is even more important. If you'd like to get in touch,
+    please don't hesitate to <a href="mailto:henrybhaller@gmail.com?Subject=I%20Liked%20Your%20Website" target="_top">get in touch</a>.
+  </p>
 </body>
-<script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="/static/js/EA.js"></script>
 </html>
-
