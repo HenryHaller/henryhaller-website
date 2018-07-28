@@ -5,7 +5,7 @@ import db
 import urls
 import psycopg2
 from configparser import ConfigParser
-import schema
+import models
 
 
 """
@@ -15,6 +15,44 @@ buildup: rebuild the show table from urls.yaml
 
 """
 
+SQL_INSERT_USER_RECORD = '''INSERT INTO users (username, passhash, salt) VALUES (%s, %s, %s)'''
+def insert_user(username, passhash, salt):
+	conn = None
+	rows = None
+	try:
+		conn = db.connect()
+		cur = conn.cursor()
+		cur.execute(SQL_INSERT_USER_RECORD,  (username, passhash, salt))
+		conn.commit()
+		cur.close()
+	except (Exception, psycopg2.DatabaseError) as error:
+		print(error)
+		traceback.print_exc()
+	finally:
+		if conn is not None:
+			conn.close()
+
+
+SQL_SELECT_USER_RECORD = '''SELECT id, username, passhash, salt FROM users WHERE username = %s LIMIT 1'''
+def select_user(username):
+	conn = None
+	rows = None
+	user = None
+	try:
+		conn = db.connect()
+		cur = conn.cursor()
+		cur.execute(SQL_SELECT_USER_RECORD, (username, ))
+		user = cur.fetchone()
+		cur.close()
+	except (Exception, psycopg2.DatabaseError) as error:
+		print(error)
+		traceback.print_exc()
+	finally:
+		if conn is not None:
+			conn.close()
+	if type(user) == psycopg2.extras.DictRow: user = models.User(user)
+	return user
+
 
 
 SQL_SELECT_EPISODE_RECORDS = '''SELECT shows.title, episodes.episode_url, episodes.title, insertion_date, duration, shows.small_title, shows.color
@@ -22,7 +60,7 @@ SQL_SELECT_EPISODE_RECORDS = '''SELECT shows.title, episodes.episode_url, episod
 				INNER JOIN shows
 				ON episodes.show_id = shows.id
 				ORDER BY insertion_date DESC
-				LIMIT 25'''
+				LIMIT 8'''
 
 def select_episodes():
 	conn = None
@@ -42,7 +80,7 @@ def select_episodes():
 		if conn is not None:
 			conn.close()
 	for row in rows:
-		episodes.append(schema.Episode(row))
+		episodes.append(models.Episode(row))
 	return episodes
 
 
@@ -71,7 +109,7 @@ def select_podview_episodes(small_title):
 		if conn is not None:
 			conn.close()
 	for row in rows:
-		episodes.append(schema.Episode(row))
+		episodes.append(models.Episode(row))
 	return episodes
 
 init_file = "postgres_init.sql"

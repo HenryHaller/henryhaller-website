@@ -1,3 +1,4 @@
+session_key.py
 *.swp
 *.swp
 backend.log
@@ -5,4 +6,10 @@ database.ini
 run.time
 sounds.rss
 urls.yaml
+__pycache__/
+env/
+env_frontend/
+sounds.rss.1
+templates/pods_index.html.jinja2
+urls.yaml.copy
 

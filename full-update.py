@@ -10,6 +10,7 @@ logging.info("Running on " + time.strftime("%c"))
 
 
 for show_title, url, dt, show_id in Data.shows():
+	print("Doing full update for " + show_title)
 	try:
 		logging.info(show_title)
 		d = requests.get(url).text

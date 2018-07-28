@@ -1,13 +1,5 @@
 import hashlib
 class Episode():
-	show_title = None
-	episode_title = None
-	url = None
-	color = None
-	timestamp = None
-	duration = None
-	small_show_title = None
-	color = None
 	def __init__(self, rows):
 		self.show_title = rows[0]
 		self.url = rows[1]
@@ -24,13 +16,21 @@ class Episode():
 
 
 class Show():
-	title = None
-	url = None
-	small_title = None
-	color = None
 	def __init__(self, title, url, color):
 		self.title = title
 		self.url = url
 		self.small_title = self.title.lower().replace(' ', '_')
 		self.color = color
 
+
+class User():
+	def __init__(self, atts):
+		self.id = atts["id"]
+		self.username = atts["username"]
+		self.passhash = atts["passhash"]
+		self.salt = atts["salt"]
+	def test_password(self, password):
+		password += self.salt
+		h = hashlib.new('sha256')
+		h.update(password.encode('utf-8'))
+		return h.hexdigest() == self.passhash

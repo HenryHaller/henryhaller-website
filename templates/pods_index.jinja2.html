@@ -27,6 +27,17 @@
       <td class="duration right"><p>{{ episode.duration }}</p></td>
     </tr>
 {% endfor %}
+  <tr class="logout">
+    <td class="logout" colspan=1>
+    <a href="/pods/logout/" style="color: red; font-size: 21px; text-align: center;">
+       Log out
+    </a></td>
+    <td colspan=3 style="color: red; font-size: 21px; text-align: center;">
+      <form method="post" action="/pods/add_rss/">
+        ADD RSS: <input type="text" name="new_rss">
+      </form>
+    </td>
+  </tr>
   </tbody>
   </table>
   </div>
