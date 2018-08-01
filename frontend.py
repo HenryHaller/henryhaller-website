@@ -6,7 +6,17 @@ import jinja2
 from string import ascii_letters, digits
 from random import choice
 import hashlib
+import re
 
+regex = re.compile(
+        r'^(?:http|ftp)s?://' # http:// or https://
+        r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|' #domain...
+        r'localhost|' #localhost...
+        r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})' # ...or ip
+        r'(?::\d+)?' # optional port
+        r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+
+def valid_url(url): return re.match(regex, url) is not None
 
 application.secret_key = my_session_key.my_session_key
 templateLoader = jinja2.FileSystemLoader(searchpath="./templates")
@@ -35,6 +45,13 @@ def insert_new_user(username, password):
 	passhash, salt = salt_password(password)
 	Data.insert_user(username, passhash, salt)
 
+
+@application.route("/add_rss/", methods=['POST'])
+def add_show():
+  if 'username' not in sesssion: redirect(url_for("pods_login"))
+  feed = request.form["feed"]
+  if feed == None: redirect(url_for("pods"))
+  if !valid_url(feed): redirect(url_for("pods"))
 
 
 

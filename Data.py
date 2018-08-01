@@ -15,6 +15,22 @@ buildup: rebuild the show table from urls.yaml
 
 """
 
+SQL_UPDATE_SHOW_TITLE = '''UPDATE shows SET title = %s WHERE id = %s'''
+def update_show_title(title, id):
+  conn = None
+  try:
+    conn = db.connect()
+    cur = conn.cursor()
+    cur.execute(SQL_UPDATE_SHOW_TITLE, (title, id))
+    conn.commit()
+    cur.close()
+  except (Exception, psycopg2.DatabaseError) as error:
+    print(error)
+  finally:
+    if conn is not None:
+      conn.close()
+
+
 SQL_INSERT_USER_RECORD = '''INSERT INTO users (username, passhash, salt) VALUES (%s, %s, %s)'''
 def insert_user(username, passhash, salt):
 	conn = None
@@ -194,24 +210,43 @@ def shows():
 			conn.close()
 	return rows
 
-
+SQL_INSERT_EPISODE_RECORD_BASE = b'''INSERT INTO episodes ( show_id, episode_url, title, insertion_date, duration) VALUES '''
+def insert_episodes(data):
+  conn = None
+  try:
+    conn = db.connect()
+    cur = conn.cursor()
+    # for row in data:
+      # print(cur.mogrify('(%s, %s, %s, %s, %s)', row))
+    # print(cur.mogrify('(%s, %s, %s, %s, %s)', row) for row in data)
+    text_data = b','.join(cur.mogrify('(%s, %s, %s, %s, %s)', row) for row in data)
+    cur.execute(SQL_INSERT_EPISODE_RECORD_BASE + text_data)
+    conn.commit()
+    cur.close()
+  except (Exception, psycopg2.DatabaseError) as error:
+    print(error)
+    traceback.print_exc()
+    # likely a duplicate?
+  finally:
+    if conn is not None:
+      conn.close()
 
 SQL_INSERT_EPISODE_RECORD = '''INSERT INTO episodes ( show_id, episode_url, title, insertion_date, duration) VALUES (%s, %s, %s, %s, %s) '''
 def insert_episode(id, url, title, timestamp, duration):
-	conn = None
-	try:
-		conn = db.connect()
-		cur = conn.cursor()
-		cur.execute(SQL_INSERT_EPISODE_RECORD, (id, url, title, timestamp, duration))
-		conn.commit()
-		cur.close()
-	except (Exception, psycopg2.DatabaseError) as error:
-		print(error)
+  conn = None
+  try:
+    conn = db.connect()
+    cur = conn.cursor()
+    cur.execute(SQL_INSERT_EPISODE_RECORD, (id, url, title, timestamp, duration))
+    conn.commit()
+    cur.close()
+  except (Exception, psycopg2.DatabaseError) as error:
+    print(error)
 		#traceback.print_exc()
 		# likely a duplicate?
-	finally:
-		if conn is not None:
-			conn.close()
+  finally:
+    if conn is not None:
+      conn.close()
 
 SQL_HARVEST_SHOW_TIMESTAMP = '''SELECT ts FROM shows LIMIT 1'''
 SQL_MODIFY_SHOWS_TIMESTAMP = '''UPDATE shows SET ts=%s'''
