@@ -13,3 +13,5 @@ sounds.rss.1
 templates/pods_index.html.jinja2
 urls.yaml.copy
 
+errors
+log
