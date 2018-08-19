@@ -51,7 +51,7 @@ def add_show():
   if 'username' not in sesssion: redirect(url_for("pods_login"))
   feed = request.form["feed"]
   if feed == None: redirect(url_for("pods"))
-  if !valid_url(feed): redirect(url_for("pods"))
+  if not valid_url(feed): redirect(url_for("pods"))
 
 
 
